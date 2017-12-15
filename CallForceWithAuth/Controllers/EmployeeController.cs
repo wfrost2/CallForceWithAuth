@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace CallForceWithAuth.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private CallForceContext db = new CallForceContext();
