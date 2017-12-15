@@ -34,6 +34,22 @@
                         </ul>
                     </li>
                 </ul>
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @Html.ActionLink("Logout", "LogOff", "Account")
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @Html.ActionLink("Login","Login","Account")
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>

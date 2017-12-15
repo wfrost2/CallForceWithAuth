@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CallForceWithAuth.Models;
 using CallForceWithAuth.DAL;
+using System.Web.Security;
 
 namespace CallForceWithAuth.Controllers
 {
@@ -405,7 +406,9 @@ namespace CallForceWithAuth.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
 
