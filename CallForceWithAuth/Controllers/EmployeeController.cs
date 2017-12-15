@@ -42,5 +42,22 @@ namespace CallForceWithAuth.Controllers
             ViewBag.email = TempData["email"];
             return View(db.MessageBoards.ToList());
         }
+
+        [HttpPost]
+        public ActionResult TeamMessage(FormCollection form)
+        {
+            var messageId = form["messageId"];
+            MessageBoard MB = db.MessageBoards.Find(messageId);
+            if(MB != null)
+            {
+                if (form["comment"].Length > 1)
+                {
+                    MB.answer = form["comment"];
+                    MB.userID = form["userId"];
+                }
+            }
+            
+            return View();
+        }
     }
 }

@@ -17,8 +17,10 @@ ViewBag.Title = "TeamMessage";
                         </strong>
                         <form>
                             <div class="form-group">
-                                <textarea class="form-control" id="comment" rows="5" placeholder="Insert comment here"></textarea>
+                                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Insert comment here"></textarea>
                             </div>
+                            <input name="messageId" value="@item.messageID" hidden />
+                            <input name="userId" value="@ViewBag.email" hidden />
                             <button type="submit" class="btn btn-primary">Comment</button><hr /><br />
                         </form>
                     }

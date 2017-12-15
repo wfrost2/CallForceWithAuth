@@ -14,10 +14,8 @@ namespace CallForceWithAuth.Models
         public int messageID { get; set; }
         public String question { get; set; }
         public String answer { get; set; }
-        public int? empID { get; set; }
-
-        [ForeignKey("User")]
-        public virtual int? userID { get; set; }
-        public virtual User User { get; set; }
+        public String empID { get; set; }
+        public String userID { get; set; }
+       
     }
 }
