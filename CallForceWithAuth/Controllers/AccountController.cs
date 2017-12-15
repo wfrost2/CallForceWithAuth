@@ -362,7 +362,8 @@ namespace CallForceWithAuth.Controllers
                         user.userLast = lastname;
                         user.password = "google";
                         db.Users.Add(user);
-                        db.SaveChanges();
+                        //db.SaveChanges();
+                        TempData["email"] = email;
                     }
                         return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:

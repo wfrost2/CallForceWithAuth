@@ -1,29 +1,30 @@
-﻿
+﻿@model CallForceWithAuth.Models.Employee
+
 @{
     ViewBag.Title = "Goals";
 }
 <div>
     <h2>Employee Goals</h2>
-    <h3>@ViewBag.name</h3>
+    <h3>@Model.empName</h3>
     <br />
 </div>
 
 <div class="row">
     <div class="col-md-4">
         <h3>Sales Goal</h3>
-        <h2>@ViewBag.goal</h2>
+        <h2>@Model.empGoal</h2>
     </div>
     <div class="col-md-4">
-        <img src="@Url.Content(ViewBag.img)" class="img-thumbnail" />
+        <img src="@Url.Content(Model.empImg)" class="img-thumbnail" />
         <h4>Employee Info</h4>
-        <p>Department: @ViewBag.dep</p>
-        <p>Years Working for CallForce: @ViewBag.yrswrked</p>
+        <p>Department: @Model.empDep</p>
+        <p>Years Working for CallForce: @Model.empYrsWrked</p>
         
 
     </div>
     <div class="col-md-4">
         <h3>Sales Made</h3>
-        <h2>@ViewBag.sales</h2>
+        <h2>@Model.empSales</h2>
     </div>
 </div>
 

@@ -17,5 +17,6 @@ namespace CallForceWithAuth.Models
         public String empDep { get; set; }
         public int empSales { get; set; }
         public int empGoal { get; set; }
+        public String empImg { get; set; }
     }
 }
