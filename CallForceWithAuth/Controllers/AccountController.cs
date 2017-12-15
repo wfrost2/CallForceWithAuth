@@ -82,6 +82,16 @@ namespace CallForceWithAuth.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //var email = model.Email;
+                    //var firstName = model.;
+                    //var lastname = lastNameClaim.Value;
+                    //User user = new Models.User();
+                    //user.userEmail = email;
+                    //user.userFirst = firstName;
+                    //user.userLast = lastname;
+                    //user.password = "google";
+                    //db.Users.Add(user);
+                    //db.SaveChanges();
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -338,14 +348,21 @@ namespace CallForceWithAuth.Controllers
                 case SignInStatus.Success:
                     if (loginInfo.Login.LoginProvider == "Google")
                     {
-                        //var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
-                        //var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
-                        //var lastNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
-                        //var givenNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
-                        
-                        //var email = emailClaim.Value;
-                        //var firstName = givenNameClaim.Value;
-                        //var lastname = lastNameClaim.Value;
+                        var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                        var emailClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+                        var lastNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Surname);
+                        var givenNameClaim = externalIdentity.Result.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName);
+
+                        var email = emailClaim.Value;
+                        var firstName = givenNameClaim.Value;
+                        var lastname = lastNameClaim.Value;
+                        User user = new Models.User();
+                        user.userEmail = email;
+                        user.userFirst = firstName;
+                        user.userLast = lastname;
+                        user.password = "google";
+                        db.Users.Add(user);
+                        db.SaveChanges();
                     }
                         return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
