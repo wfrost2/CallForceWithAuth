@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/myStyle.css">
+
+    <script>
+//Function for the modal--calculate revenue
+        function calcRev() {
+            var overduePt = document.getElementById("overduePatients").value;//number of overdue patients
+            var showRate = (document.getElementById("showRate").value / 100);//show rate
+            var price = document.getElementById("price").value;//price for appointment
+            var Appts;//number of appointments we see for this range of overdue patients
+            var lifeTime = 680; //average yearly value of a pt.
+            var totalTotal; //This is the total including additional work
+
+            //calculate appointments based on range of overdue patients
+            if (overduePt < 200) {
+                Appts = 5;
+            } else if (overduePt < 600) {
+                Appts = 10;
+            } else if (overduePt < 1000) {
+                Appts = 16;
+            } else if (overduePt < 2000) {
+                Appts = 20;
+            } else if (overduePt < 4000) {
+                Appts = 30;
+            } else {
+                Appts = 50;
+            }
+
+            //calculate revenue of hygeine appointments
+            var Rev = (Appts * showRate * price) * 12;
+
+            //if they don't enter all values, show error
+            if (Rev == 0) {
+
+                document.getElementById("Revenue").innerHTML = 'Please Input All Values to see revenue'
+            }
+            else {
+
+                Rev = Rev.toLocaleString();
+                //display to modal
+                document.getElementById("Revenue").innerHTML = '$' + Rev;
+            }
+
+            //calculate the overall total, including lifetime value of a patient
+            totalTotal = (Appts * (showRate * .7) * lifeTime) * 12;
+
+            //show error if not all info entered
+            if (totalTotal == '0') {
+
+                document.getElementById("totalRev").innerHTML = 'Please Input All Values to see revenue'
+
+            }
+            else {
+
+                totalTotal = totalTotal.toLocaleString();
+                //display to page
+                document.getElementById("totalRev").innerHTML = '$' + totalTotal;
+            }
+        }
+    </script>
+
+</head>
+
+<h2>@ViewBag.Title</h2>
+<div class="container">
+    <div class="row">
+        <p>CallForce fills your empty chairs by setting appointments with your overdue patients.</p>
+    </div>
+</div>
+<section class="calc">
+    <div class="container" style="padding-right: 30px">
+        <div class="jumbotron">
+            <h1><strong>SEE THE EFFECT OF FULL CHAIRS</strong></h1>
+        </div>
+        <div>
+            <div class="row">
+                <div Style="text-align:center;">
+                    <p style="text-align: center; color: white;">Calculate the revenue that you would add by using CallForce</p>
+                    <div class="form-group col-md-3">
+                        <label style="color:white; font-size: 10px">NUMBER OF OVERDUE PATIENTS</label>
+                        <input type="number" name="overduePatients" class="inputCalc" id="overduePatients" placeholder="500" size="5">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label style="color:white; font-size: 10px;">PRICE YOU CHARGE FOR HYGIENE APPOINTMENT</label>
+                        <span style="color:white">$</span><input type="number" name="price" class="inputCalc" id="price" placeholder="120" size="5">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label style="color:white; font-size: 10px;">ENTER YOUR OFFICE SHOW RATE</label><br>
+                        <input type="number" name="showRate " class="inputCalc" id="showRate" placeholder="70" size="5"><span style="color:white">%</span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label style="color:white; font-size: 10px;">ENTER YOUR EMAIL ADDRESS</label>
+                        <input type="text" name="email" class="inputCalc" id="email" placeholder="ex@example.com" size="20">
+                    </div>
+                    <div style="text-align: center;">
+                        <button id="myBtn" class="btn btn_white" data-toggle="modal" data-target="#myModal" onclick="calcRev()">CALCULATE REVENUE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><strong>Estimated Revenue Generated</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Your estimated annual revenue generated from CallForce is:</p>
+                    <p class="revenue" id="Revenue"></p>
+                    <p>Taking into account that 1 in every 10 patients will need additional work, your estimated total annual revenue from CallForce is:</p>
+                    <p class="revenue" id="totalRev"></p>
+                </div>
+                <div class="modal-footer" style="text-align:center;">
+                    <a href="#contact" class="btn btn_red" style="color:#EF3E36" data-dismiss="modal">SCHEDULE A DEMO</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
