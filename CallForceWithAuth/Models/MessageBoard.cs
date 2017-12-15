@@ -16,6 +16,7 @@ namespace CallForceWithAuth.Models
         public String answer { get; set; }
         public String empID { get; set; }
         public String userID { get; set; }
+        public String commenter { get; set; }
        
     }
 }

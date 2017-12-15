@@ -15,14 +15,23 @@ ViewBag.Title = "TeamMessage";
                         <br /><strong>
                             @item.question<br /><br />
                         </strong>
-                        <form>
-                            <div class="form-group">
-                                <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Insert comment here"></textarea>
+                        if (item.commenter != null && item.answer != null)
+                        {
+                            <p>@item.answer</p>
+                            <p><em>answered by @item.commenter</em></p>
+                        }
+                        <form action="/Employee/TeamMessage" method="post">
+                            <div>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="comment" name="comment" rows="5" placeholder="Insert comment here"></textarea>
+                                </div>
+                                <input name="messageId" value="@item.messageID" hidden />
+                                <input name="commenter" value="@ViewBag.Email" hidden />
+                                <button type="submit" class="btn btn-primary">Comment</button><hr /><br />
                             </div>
-                            <input name="messageId" value="@item.messageID" hidden />
-                            <input name="userId" value="@ViewBag.email" hidden />
-                            <button type="submit" class="btn btn-primary">Comment</button><hr /><br />
                         </form>
+                        <br />
+                        
                     }
             </li>
         </ul>

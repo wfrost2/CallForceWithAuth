@@ -2,6 +2,7 @@
 using CallForceWithAuth.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,7 +40,7 @@ namespace CallForceWithAuth.Controllers
         }
         public ActionResult TeamMessage()
         {
-            ViewBag.email = TempData["email"];
+            ViewBag.Email = TempData["email"];
             return View(db.MessageBoards.ToList());
         }
 
@@ -47,17 +48,19 @@ namespace CallForceWithAuth.Controllers
         public ActionResult TeamMessage(FormCollection form)
         {
             var messageId = form["messageId"];
-            MessageBoard MB = db.MessageBoards.Find(messageId);
+            MessageBoard MB = db.MessageBoards.Find(Convert.ToInt32(messageId));
             if(MB != null)
             {
                 if (form["comment"].Length > 1)
                 {
                     MB.answer = form["comment"];
-                    MB.userID = form["userId"];
+                    MB.commenter = form["commenter"];
+                    db.Entry(MB).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
-            
-            return View();
+            TempData["email"] = MB.commenter;
+            return RedirectToAction("TeamMessage");
         }
     }
 }
