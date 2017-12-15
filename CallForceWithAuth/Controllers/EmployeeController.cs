@@ -39,8 +39,8 @@ namespace CallForceWithAuth.Controllers
         }
         public ActionResult TeamMessage()
         {
-
-            return View();
+            ViewBag.email = TempData["email"];
+            return View(db.MessageBoards.ToList());
         }
     }
 }
